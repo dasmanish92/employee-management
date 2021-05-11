@@ -5,6 +5,7 @@ import org.employee.management.repository.EmpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,5 +38,10 @@ public class EmployeeService {
         Employee employee = empRepository.deleteById(id);
         return employee;
     }
+
+    /*public List<Employee> findEmpByLastNameAndGender(String fName, String lName) {
+        List<Employee> employees = empRepository.findAllByLastName(fName, lName);
+        return null;
+    }*/
 
 }

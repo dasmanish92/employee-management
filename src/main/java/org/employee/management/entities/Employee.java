@@ -33,7 +33,11 @@ public class Employee {
     private LocalDate hireDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "dept_id")
+    ///@JoinColumn(name = "dept_id")
+    @JoinTable(
+            name = "dept_emp",
+            joinColumns = @JoinColumn(name = "emp_id"),
+            inverseJoinColumns = @JoinColumn(name = "dept_id"))
     @JsonManagedReference
     private Department department;
 
