@@ -15,9 +15,5 @@ public interface EmpRepository extends CrudRepository<Employee, Integer> {
 
     public void delete(Employee employee);
 
-    //public Employee save(Employee employee);
-
     public Employee deleteById(int id);
-
-   // public Employee
 }
