@@ -1,5 +1,6 @@
 package org.employee.management.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class Department {
     @Column(name = "dept_name")
     private String dept_name;
 
-    @OneToOne
+    @OneToOne(mappedBy = "department")
+    @JsonBackReference
     private Employee employee;
 
     public int getDepNo() {

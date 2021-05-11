@@ -1,5 +1,7 @@
 package org.employee.management.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,7 +23,8 @@ public class Salary {
     @Column(name = "to_date")
     private LocalDate toDate;
 
-    @OneToOne
+    @OneToOne(mappedBy = "salary")
+    @JsonBackReference
     private Employee employee;
 
     public int getId() {

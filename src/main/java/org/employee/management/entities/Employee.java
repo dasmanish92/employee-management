@@ -1,5 +1,6 @@
 package org.employee.management.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.employee.management.enums.Gender;
 
 import javax.persistence.*;
@@ -33,10 +34,12 @@ public class Employee {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dept_id")
+    @JsonManagedReference
     private Department department;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "salary_id")
+    @JsonManagedReference
     private Salary salary;
 
     public int getEmpId() {

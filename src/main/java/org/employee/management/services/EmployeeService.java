@@ -5,6 +5,8 @@ import org.employee.management.repository.EmpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeService {
 
@@ -15,4 +17,25 @@ public class EmployeeService {
         Employee savedEntity = empRepository.save(employee);
         return savedEntity;
     }
+
+    public Employee findById(int id) {
+        Employee employee = empRepository.findById(id);
+        return employee;
+    }
+
+    public List<Employee> findAllEmployees() {
+        List<Employee> employees = (List<Employee>) empRepository.findAll();
+        return employees;
+    }
+
+    public Employee deleteEmployee(Employee emp) {
+        empRepository.delete(emp);
+        return emp;
+    }
+
+    public Employee deleteEmployeeById(int id) {
+        Employee employee = empRepository.deleteById(id);
+        return employee;
+    }
+
 }

@@ -23,8 +23,8 @@ public class EmployeeManagementApplication {
         EmpRepository empRepository = context.getBean(EmpRepository.class);
         System.out.println(empRepository.toString());
 
-        Employee emp1 = empRepository.save(poplateEmpData());//poplateEmpData();
-        System.out.println("saved entity : " + emp1);
+        //Employee emp1 = empRepository.save(poplateEmpData());//poplateEmpData();
+        //System.out.println("saved entity : " + emp1);
 
     }
 
