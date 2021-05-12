@@ -66,7 +66,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    @ApiOperation(value = "get employee", notes = "get employee DB based on empId", response = Employee.class)
+    @ApiOperation(value = "get employee by id", notes = "get employee DB based on empId", response = Employee.class)
     public ResponseEntity<Employee> findById(@PathVariable("id") int id) {
         Employee employee = employeeService.findById(id);
         if (employee == null) {
@@ -76,7 +76,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employee/{id}")
-    @ApiOperation(value = "delete employee", notes = "delete employee DB based on empId", response = Employee.class)
+    @ApiOperation(value = "delete employee by id", notes = "delete employee DB based on empId", response = Employee.class)
     public ResponseEntity<Employee> deleteEmployeeById(@PathVariable("id") int id) {
         Employee employee = employeeService.deleteEmployeeById(id);
         if (employee == null) {
@@ -86,7 +86,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{fName}/{lName}")
-    @ApiOperation(value = "find employee", notes = "find employee by First Name & Last Name", response = Employee.class)
+    @ApiOperation(value = "find employee by firstName, lastName", notes = "find employee by First Name & Last Name", response = Employee.class)
     public ResponseEntity<List<Employee>> findAllByFirstNameAndLastName(@PathVariable("fName") String firstName, @PathVariable("lName") String lastName) {
         List<Employee> employees = employeeService.findAllByFirstNameAndLastName(firstName, lastName);
         if (employees == null) {
@@ -96,7 +96,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{lName}/{gender}/{dob}")
-    @ApiOperation(value = "find employee with 3 params", notes = "find employee by Last Name, Gender & DOB", response = Employee.class)
+    @ApiOperation(value = "find employee by lastName, gender and dob", notes = "find employee by Last Name, Gender & DOB", response = Employee.class)
     public ResponseEntity<List<Employee>> findAllByLastNameAndDobAndGender(@PathVariable("lName") String lastName, @PathVariable("gender") org.employee.management.enums.Gender gender, @PathVariable("dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) java.util.Date dob) {
         List<Employee> employees = employeeService.findAllByLastNameAndDobAndGender(lastName, gender , dob);
         if (employees == null) {
