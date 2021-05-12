@@ -1,11 +1,12 @@
 package org.employee.management.services;
 
 import org.employee.management.entities.Employee;
+import org.employee.management.enums.Gender;
 import org.employee.management.repository.EmpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -39,9 +40,16 @@ public class EmployeeService {
         return employee;
     }
 
-    /*public List<Employee> findEmpByLastNameAndGender(String fName, String lName) {
-        List<Employee> employees = empRepository.findAllByLastName(fName, lName);
-        return null;
-    }*/
+    public List<Employee> findAllByFirstNameAndLastName(String fName, String lName) {
+        List<Employee> employees = empRepository.findAllByFirstNameAndLastName(fName, lName);
+        return employees;
+    }
+
+
+    public List<Employee> findAllByLastNameAndDobAndGender(String lname, Gender gender, Date dob) {
+        List<Employee> employees = empRepository.findAllByLastNameAndGenderEnumAndBirthDate(lname, gender, dob);
+        return employees;
+    }
+
 
 }

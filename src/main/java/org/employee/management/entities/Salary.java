@@ -3,7 +3,6 @@ package org.employee.management.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,11 +16,13 @@ public class Salary {
     @Column(name = "salary", length = 11)
     private int salary;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "from_date")
-    private LocalDate fromDate;
+    private Date fromDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "to_date")
-    private LocalDate toDate;
+    private Date toDate;
 
     @OneToOne(mappedBy = "salary")
     @JsonBackReference
@@ -43,19 +44,19 @@ public class Salary {
         this.salary = salary;
     }
 
-    public LocalDate getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(LocalDate toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 

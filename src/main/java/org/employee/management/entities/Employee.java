@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.employee.management.enums.Gender;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,21 +15,23 @@ public class Employee {
     @Column(name = "emp_id", length = 11)
     private int empId;
 
-    @Column(name = "emp_first_name", length = 14)
+    //@Column(name = "emp_first_name", length = 14)
     private String firstName;
 
-    @Column(name = "emp_second_name", length = 16)
+    //@Column(name = "emp_second_name", length = 16)
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "emp_gender")
+    //@Column(name = "emp_gender")
     private Gender genderEnum;
 
-    @Column(name = "emp_birth_date")
-    private LocalDate birthDate;
+    @Temporal(TemporalType.DATE)
+    //@Column(name = "emp_birth_date")
+    private Date birthDate;
 
-    @Column(name = "emp_hire_date")
-    private LocalDate hireDate;
+   //@Column(name = "emp_hire_date")
+    @Temporal(TemporalType.DATE)
+    private Date hireDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     ///@JoinColumn(name = "dept_id")
@@ -42,9 +43,18 @@ public class Employee {
     private Department department;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "salary_id")
+    //@JoinColumn(name = "salary_id")
+    @JoinTable(
+            name = "salary_emp",
+            joinColumns = @JoinColumn(name = "emp_id"),
+            inverseJoinColumns = @JoinColumn(name = "salary_id"))
     @JsonManagedReference
     private Salary salary;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "title")
+    @JsonManagedReference
+    private Title title;
 
     public int getEmpId() {
         return empId;
@@ -78,19 +88,19 @@ public class Employee {
         this.genderEnum = genderEnum;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
-    public LocalDate getHireDate() {
+    public Date getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(LocalDate hireDate) {
+    public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
 

@@ -1,16 +1,14 @@
 package org.employee.management.controllers;
 
 import io.swagger.annotations.ApiOperation;
-import org.apache.tomcat.jni.Local;
 import org.employee.management.entities.Employee;
 import org.employee.management.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,12 +85,23 @@ public class EmployeeController {
         return ResponseEntity.of(Optional.of(employee));
     }
 
-    /*@GetMapping("/employee/{fName}/{lName}")
-    public ResponseEntity<Employee> findEmpByLastNameBirthDateAndGender(@PathVariable("fName") String firstName, @PathVariable("lName") String lastName) {
-        List<Employee> employee = employeeService.findEmpByLastNameAndGender(firstName, lastName);
-        if (employee == null) {
+    @GetMapping("/employee/{fName}/{lName}")
+    @ApiOperation(value = "find employee", notes = "find employee by First Name & Last Name", response = Employee.class)
+    public ResponseEntity<List<Employee>> findAllByFirstNameAndLastName(@PathVariable("fName") String firstName, @PathVariable("lName") String lastName) {
+        List<Employee> employees = employeeService.findAllByFirstNameAndLastName(firstName, lastName);
+        if (employees == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return null;
-    }*/
+        return ResponseEntity.status(HttpStatus.FOUND).body(employees);
+    }
+
+    @GetMapping("/employee/{lName}/{gender}/{dob}")
+    @ApiOperation(value = "find employee with 3 params", notes = "find employee by Last Name, Gender & DOB", response = Employee.class)
+    public ResponseEntity<List<Employee>> findAllByLastNameAndDobAndGender(@PathVariable("lName") String lastName, @PathVariable("gender") org.employee.management.enums.Gender gender, @PathVariable("dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) java.util.Date dob) {
+        List<Employee> employees = employeeService.findAllByLastNameAndDobAndGender(lastName, gender , dob);
+        if (employees == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(employees);
+    }
 }

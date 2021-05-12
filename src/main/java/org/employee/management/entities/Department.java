@@ -1,7 +1,6 @@
 package org.employee.management.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
