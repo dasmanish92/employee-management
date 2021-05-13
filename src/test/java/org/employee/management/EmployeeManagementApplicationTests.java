@@ -5,16 +5,13 @@ import org.employee.management.entities.Employee;
 import org.employee.management.entities.Salary;
 import org.employee.management.enums.Gender;
 import org.employee.management.repository.EmpRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
