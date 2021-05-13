@@ -15,39 +15,39 @@ public class Employee {
     @Column(name = "emp_id", length = 11)
     private int empId;
 
-    //@Column(name = "emp_first_name", length = 14)
+    @Column(name = "emp_first_name", length = 14)
     private String firstName;
 
-    //@Column(name = "emp_second_name", length = 16)
+    @Column(name = "emp_second_name", length = 16)
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    //@Column(name = "emp_gender")
+    @Column(name = "emp_gender")
     private Gender genderEnum;
 
     @Temporal(TemporalType.DATE)
-    //@Column(name = "emp_birth_date")
+    @Column(name = "emp_birth_date")
     private Date birthDate;
 
-   //@Column(name = "emp_hire_date")
+    @Column(name = "emp_hire_date")
     @Temporal(TemporalType.DATE)
     private Date hireDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    ///@JoinColumn(name = "dept_id")
+    /*@JoinColumn(name = "dept_id")
     @JoinTable(
             name = "dept_emp",
             joinColumns = @JoinColumn(name = "emp_id"),
-            inverseJoinColumns = @JoinColumn(name = "dept_id"))
+            inverseJoinColumns = @JoinColumn(name = "dept_id"))*/
     @JsonManagedReference
     private Department department;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name = "salary_id")
-    @JoinTable(
+    /*@JoinTable(
             name = "salary_emp",
             joinColumns = @JoinColumn(name = "emp_id"),
-            inverseJoinColumns = @JoinColumn(name = "salary_id"))
+            inverseJoinColumns = @JoinColumn(name = "salary_id"))*/
     @JsonManagedReference
     private Salary salary;
 
@@ -118,5 +118,13 @@ public class Employee {
 
     public void setSalary(Salary salary) {
         this.salary = salary;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
     }
 }

@@ -3,6 +3,7 @@ package org.employee.management.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "title")
@@ -15,9 +16,9 @@ public class Title {
 
     private String title;
 
-    @OneToOne(mappedBy = "title")
+    @OneToMany(mappedBy = "title")
     @JsonBackReference
-    private Employee employee;
+    private List<Employee> employee;
 
     public int getId() {
         return id;
@@ -35,11 +36,11 @@ public class Title {
         this.title = title;
     }
 
-    public Employee getEmployee() {
+    public List<Employee> getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(List<Employee> employee) {
         this.employee = employee;
     }
 }

@@ -3,6 +3,7 @@ package org.employee.management;
 import org.employee.management.entities.Department;
 import org.employee.management.entities.Employee;
 import org.employee.management.entities.Salary;
+import org.employee.management.entities.Title;
 import org.employee.management.enums.Gender;
 import org.employee.management.repository.EmpRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +68,8 @@ class EmployeeManagementApplicationTests {
         Employee employee = new Employee();
         Department department = new Department();
         Salary salary = new Salary();
+        Title title = new Title();
+        List<Employee>employeeList = new ArrayList<>();
 
         //employee data
         employee.setEmpId(1);
@@ -79,13 +83,16 @@ class EmployeeManagementApplicationTests {
 
         //department data
         department.setDept_name("HR");
-        department.setEmployee(employee);
+        department.setEmployee(employeeList);
 
         //salary data
         salary.setSalary(50000);
         salary.setFromDate(new Date(2021, 1, 01));
         salary.setToDate(new Date(2021, 3, 31));
-        salary.setEmployee(employee);
+        salary.setEmployee(employeeList);
+
+        title.setTitle("Software Engineer");
+        title.setEmployee(employeeList);
 
         return employee;
     }

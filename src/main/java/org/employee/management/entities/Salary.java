@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Salary {
@@ -24,9 +25,9 @@ public class Salary {
     @Column(name = "to_date")
     private Date toDate;
 
-    @OneToOne(mappedBy = "salary")
+    @OneToMany
     @JsonBackReference
-    private Employee employee;
+    private List<Employee> employee;
 
     public int getId() {
         return id;
@@ -60,11 +61,11 @@ public class Salary {
         this.toDate = toDate;
     }
 
-    public Employee getEmployee() {
+    public List<Employee> getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(List<Employee> employee) {
         this.employee = employee;
     }
 }
