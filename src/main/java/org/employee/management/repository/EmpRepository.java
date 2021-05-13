@@ -21,7 +21,7 @@ public interface EmpRepository extends CrudRepository<Employee, Integer> {
 
     public Employee deleteById(int id);
 
-    @Query("select e from Employee e WHERE e.firstName=:fName AND e.lastName=:lName")
+    //@Query("select e from Employee e WHERE e.firstName=:fName AND e.lastName=:lName")
     public List<Employee> findAllByFirstNameAndLastName(@Param("fName") String firstName, @Param("lName") String lastName);
 
     //@Query(value = "select * from employees WHERE last_name = :lastName AND gender_enum = :gender AND birth_date = :bDate", nativeQuery = true)
