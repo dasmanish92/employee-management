@@ -26,7 +26,7 @@ public class Salary {
     private Date toDate;
 
     @OneToMany
-    @JsonBackReference
+    //@JsonBackReference
     private List<Employee> employee;
 
     public int getId() {

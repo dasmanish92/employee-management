@@ -17,7 +17,7 @@ public class Title {
     private String title;
 
     @OneToMany(mappedBy = "title")
-    @JsonBackReference
+    //@JsonBackReference
     private List<Employee> employee;
 
     public int getId() {

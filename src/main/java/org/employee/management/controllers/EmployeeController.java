@@ -2,10 +2,13 @@ package org.employee.management.controllers;
 
 import io.swagger.annotations.ApiOperation;
 import org.employee.management.entities.Employee;
+import org.employee.management.exception.InternalServerException;
+import org.employee.management.exception.RecordNotFoundException;
 import org.employee.management.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +30,11 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     @ApiOperation(value = "find all employees", notes = "will fetch all employees form DB", response = Employee.class)
-    public ResponseEntity<List<Employee>> findAllEmployees() {
+    public ResponseEntity<List<Employee>> findAllEmployees() throws Exception {
         List<Employee> employees = employeeService.findAllEmployees();
         if (employees.size() <= 0) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new RecordNotFoundException("Record Not Found into Database");
+            //ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(employees);
     }
@@ -40,7 +44,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> saveEmployee(@RequestBody Employee emp) {
         Employee employee = employeeService.saveEmployee(emp);
         if (employee == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException("Internal Server Error");
+           // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
@@ -50,7 +55,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> deleteEmployee(@RequestBody Employee emp) {
         Employee employee = employeeService.deleteEmployee(emp);
         if (employee == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException("Internal Server Error");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
@@ -60,7 +66,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee emp) {
         Employee employee = employeeService.saveEmployee(emp);
         if (employee == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException("Employee could not updated into database");
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
@@ -70,7 +77,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> findById(@PathVariable("id") int id) {
         Employee employee = employeeService.findById(id);
         if (employee == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new RecordNotFoundException("Record Not Found into Database");
+            //return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.of(Optional.of(employee));
     }
@@ -98,9 +106,10 @@ public class EmployeeController {
     @GetMapping("/employee/{lName}/{gender}/{dob}")
     @ApiOperation(value = "find employee by lastName, gender and dob", notes = "find employee by Last Name, Gender & DOB", response = Employee.class)
     public ResponseEntity<List<Employee>> findAllByLastNameAndDobAndGender(@PathVariable("lName") String lastName, @PathVariable("gender") org.employee.management.enums.Gender gender, @PathVariable("dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) java.util.Date dob) {
-        List<Employee> employees = employeeService.findAllByLastNameAndDobAndGender(lastName, gender , dob);
-        if (employees == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        List<Employee> employees = null;
+        employees = employeeService.findAllByLastNameAndDobAndGender(lastName, gender, dob);
+        if (employees.size() == 0) {
+            throw new RecordNotFoundException("Record Not Found into Database");
         }
         return ResponseEntity.status(HttpStatus.FOUND).body(employees);
     }

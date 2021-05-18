@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.employee.management.enums.Gender;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,13 +13,13 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "emp_id", length = 11)
+    @Column(name = "emp_id")
     private int empId;
 
-    @Column(name = "emp_first_name", length = 14)
+    @Column(name = "emp_first_name")
     private String firstName;
 
-    @Column(name = "emp_second_name", length = 16)
+    @Column(name = "emp_second_name")
     private String lastName;
 
     @Enumerated(EnumType.STRING)
@@ -34,27 +35,20 @@ public class Employee {
     private Date hireDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    /*@JoinColumn(name = "dept_id")
-    @JoinTable(
-            name = "dept_emp",
-            joinColumns = @JoinColumn(name = "emp_id"),
-            inverseJoinColumns = @JoinColumn(name = "dept_id"))*/
-    @JsonManagedReference
+    //@JsonManagedReference
     private Department department;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@JoinColumn(name = "salary_id")
-    /*@JoinTable(
-            name = "salary_emp",
-            joinColumns = @JoinColumn(name = "emp_id"),
-            inverseJoinColumns = @JoinColumn(name = "salary_id"))*/
-    @JsonManagedReference
+    //@JsonManagedReference
     private Salary salary;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "title")
-    @JsonManagedReference
+    //@JsonManagedReference
     private Title title;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private DepartmentManager departmentManager;
 
     public int getEmpId() {
         return empId;
@@ -64,9 +58,11 @@ public class Employee {
         this.empId = empId;
     }
 
+
     public String getFirstName() {
         return firstName;
     }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -126,5 +122,13 @@ public class Employee {
 
     public void setTitle(Title title) {
         this.title = title;
+    }
+
+    public DepartmentManager getDepartmentManager() {
+        return departmentManager;
+    }
+
+    public void setDepartmentManager(DepartmentManager departmentManager) {
+        this.departmentManager = departmentManager;
     }
 }

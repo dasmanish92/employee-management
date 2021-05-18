@@ -1,9 +1,6 @@
 package org.employee.management;
 
-import org.employee.management.entities.Department;
-import org.employee.management.entities.Employee;
-import org.employee.management.entities.Salary;
-import org.employee.management.entities.Title;
+import org.employee.management.entities.*;
 import org.employee.management.enums.Gender;
 import org.employee.management.repository.EmpRepository;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +35,7 @@ public class EmployeeManagementApplication {
         Department department = new Department();
         Salary salary = new Salary();
         Title title = new Title();
+        DepartmentManager  departmentManager = new DepartmentManager();
 
         //employee data
         employee.setEmpId(1);
@@ -49,12 +47,14 @@ public class EmployeeManagementApplication {
         employee.setBirthDate(new Date(1990, 11, 04));
         employee.setHireDate(new Date(2018, 10, 29));
         employee.setTitle(title);
+        employee.setDepartmentManager(departmentManager);
 
         //department data
         List<Employee>employeeList = new ArrayList<>();
         employeeList.add(employee);
         department.setDept_name("HR");
         department.setEmployee(employeeList);
+        /*department.setManager(departmentManager);*/
 
         //salary data
         salary.setSalary(50000);
@@ -62,8 +62,13 @@ public class EmployeeManagementApplication {
         salary.setToDate(new Date(2021, 3, 31));
         salary.setEmployee(employeeList);
 
-        title.setTitle("Software Engineer");
+        title.setTitle("Department Manager Engineer");
         title.setEmployee(employeeList);
+
+        departmentManager.setId(1);
+        departmentManager.setManagerName("Manager_Name");
+        departmentManager.setDepartment(department);
+        departmentManager.setSalary(salary);
 
         return employee;
     }

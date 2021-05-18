@@ -18,8 +18,9 @@ public class Department {
     private String dept_name;
 
     @OneToMany
-    @JsonBackReference
+    //@JsonBackReference
     private List<Employee> employee;
+
 
     public int getDepNo() {
         return depNo;
@@ -44,4 +45,12 @@ public class Department {
     public void setEmployee(List<Employee> employee) {
         this.employee = employee;
     }
+
+    /*public DepartmentManager getManager() {
+        return manager;
+    }
+
+    public void setManager(DepartmentManager manager) {
+        this.manager = manager;
+    }*/
 }
