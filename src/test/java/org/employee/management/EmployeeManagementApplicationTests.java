@@ -6,6 +6,9 @@ import org.employee.management.entities.Salary;
 import org.employee.management.entities.Title;
 import org.employee.management.enums.Gender;
 import org.employee.management.repository.EmpRepository;
+import org.employee.management.services.EmployeeService;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -18,6 +21,9 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyObject;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class EmployeeManagementApplicationTests {
@@ -25,34 +31,50 @@ class EmployeeManagementApplicationTests {
     @Mock
     private EmpRepository empRepository;
 
+    @Mock
+    private EmployeeService employeeService;
+
    /* @Test
     public void contextLoads() {
     }*/
+
+  /* @BeforeEach
+   public static void beforeTest() {
+       Employee employee = populateEmployeeData();
+       when(empRepository.save(anyObject())).thenReturn(employee);
+       when(empRepository.findById(anyInt())).thenReturn(employee);
+       when(Gender.MALE.name()).thenReturn("MALE");
+       when(employee.getBirthDate()).thenReturn(new Date("1990-11-04"));
+       when(empRepository.findAllByLastNameAndGenderEnumAndBirthDate("kumar", Gender.MALE, new Date("1990-11-04"))).thenReturn((List<Employee>) employee);
+
+   }*/
 
     @Test
     @DisplayName("new employee instance should be created")
     public void createEmployee() {
         Employee employee = populateEmployeeData();
-        empRepository.save(employee);
-        Mockito.verify(empRepository, Mockito.times(1)).save(ArgumentMatchers.any(Employee.class));
+        when(empRepository.save(anyObject())).thenReturn(employee);
+        employeeService.saveEmployee(employee);
+        Mockito.verify(employeeService, Mockito.times(1)).saveEmployee(ArgumentMatchers.any(Employee.class));
     }
 
     @Test
     @DisplayName("employee should be found by id")
     public void findByIdTest() {
         Employee employee = populateEmployeeData();
-        Mockito.when(empRepository.findById(1)).thenReturn(employee);
-        Employee actualEmployee = empRepository.findById(1);
+        when(empRepository.findById(anyInt())).thenReturn(employee);
+        when(employeeService.findById(anyInt())).thenReturn(employee);
+        Employee actualEmployee = employeeService.findById(1);
         assertThat(actualEmployee.getEmpId()).isEqualTo(employee.getEmpId());
     }
     @Test
     @DisplayName("employee should be found by lastName, Gender and DOB")
     public void findAllByLastNameAndGenderEnumAndBirthDateTest() {
         Employee employee = populateEmployeeData();
-        Mockito.when(Gender.MALE.name()).thenReturn("MALE");
-        Mockito.when(employee.getBirthDate()).thenReturn(new Date("1990-11-04"));
-        Mockito.when(empRepository.findAllByLastNameAndGenderEnumAndBirthDate("kumar", Gender.MALE, new Date("1990-11-04"))).thenReturn((List<Employee>) employee);
-        List<Employee> actualEmployee = empRepository.findAllByLastNameAndGenderEnumAndBirthDate("kumar", Gender.MALE, new Date("1990-11-04"));
+        when(Gender.MALE.name()).thenReturn("MALE");
+        when(employee.getBirthDate()).thenReturn(new Date("1990-11-04"));
+        when(empRepository.findAllByLastNameAndGenderEnumAndBirthDate("kumar", Gender.MALE, new Date("1990-11-04"))).thenReturn((List<Employee>) employee);
+        List<Employee> actualEmployee = employeeService.findAllByLastNameAndDobAndGender("kumar", Gender.MALE, new Date("1990-11-04"));
         Employee emp = actualEmployee.get(0);
         assertThat(emp.getEmpId()).isEqualTo(employee.getEmpId());
         assertThat(emp.getLastName()).isEqualTo(employee.getLastName());
@@ -64,7 +86,7 @@ class EmployeeManagementApplicationTests {
 
 
 
-    public Employee populateEmployeeData(){
+    public static Employee populateEmployeeData(){
         Employee employee = new Employee();
         Department department = new Department();
         Salary salary = new Salary();
