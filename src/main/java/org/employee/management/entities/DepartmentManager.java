@@ -1,7 +1,6 @@
 package org.employee.management.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class DepartmentManager {

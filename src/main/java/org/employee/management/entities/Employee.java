@@ -1,5 +1,6 @@
 package org.employee.management.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.employee.management.enums.Gender;
 
@@ -99,6 +100,7 @@ public class Employee {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
+
 
     public Department getDepartment() {
         return department;

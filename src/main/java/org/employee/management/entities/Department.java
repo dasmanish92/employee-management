@@ -1,6 +1,7 @@
 package org.employee.management.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,6 +38,7 @@ public class Department {
     public void setDept_name(String dept_name) {
         this.dept_name = dept_name;
     }
+
 
     public List<Employee> getEmployee() {
         return employee;

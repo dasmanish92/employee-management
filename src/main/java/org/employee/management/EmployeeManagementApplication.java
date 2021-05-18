@@ -24,9 +24,9 @@ public class EmployeeManagementApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(EmployeeManagementApplication.class, args);
-        EmpRepository repository = context.getBean(EmpRepository.class);
-        Employee employee = repository.save(populateEmployeeData());
-        System.out.println(employee);
+        //EmpRepository repository = context.getBean(EmpRepository.class);
+        //Employee employee = repository.save(populateEmployeeData());
+        //System.out.println(employee);
 
     }
 

@@ -1,10 +1,8 @@
 package org.employee.management.services;
 
 import org.employee.management.entities.Department;
-import org.employee.management.entities.Employee;
 import org.employee.management.repository.DeptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
